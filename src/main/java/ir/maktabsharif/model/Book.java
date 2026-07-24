@@ -2,32 +2,33 @@ package ir.maktabsharif.model;
 
 import ir.maktabsharif.exception.InvalidDataException;
 
+import java.util.Objects;
+
 public class Book extends BaseModel<Long> {
 
     private String title;
     private String author;
     private Double price;
     private Integer availableCopies;
-    private String isbn;
 
     public Book() {
     }
 
-    public Book(String title, String author, Double price, Integer availableCopies, String isbn) {
+    public Book(String title, String author, Double price, Integer availableCopies) {
         setTitle(title);
         setAuthor(author);
         setPrice(price);
         setAvailableCopies(availableCopies);
-        setIsbn(isbn);
+
     }
 
-    public Book(Long id, String title, String author, Double price, Integer availableCopies, String isbn) {
+    public Book(Long id, String title, String author, Double price, Integer availableCopies) {
         super(id);
         setTitle(title);
         setAuthor(author);
         setPrice(price);
         setAvailableCopies(availableCopies);
-        setIsbn(isbn);
+
     }
 
     public Double getPrice() {
@@ -74,15 +75,16 @@ public class Book extends BaseModel<Long> {
         this.author = author;
     }
 
-    public String getIsbn() {
-        return isbn;
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return Objects.equals(title, book.title) && Objects.equals(author, book.author);
     }
 
-    public void setIsbn(String isbn) {
-        if (isbn == null || isbn.isBlank()) {
-            throw new InvalidDataException("ISBN can not be null or empty!");
-        }
-        this.isbn = isbn;
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, author);
     }
 
     @Override
@@ -94,7 +96,6 @@ public class Book extends BaseModel<Long> {
                 Author: %s
                 Price: %.2f
                 Available Copies: %d
-                ISBN: %s
-                """, getId(), getTitle(), getAuthor(), getPrice(), getAvailableCopies(), getIsbn());
+                """, getId(), getTitle(), getAuthor(), getPrice(), getAvailableCopies());
     }
 }
