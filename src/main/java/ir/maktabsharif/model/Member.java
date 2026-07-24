@@ -2,6 +2,8 @@ package ir.maktabsharif.model;
 
 import ir.maktabsharif.exception.InvalidDataException;
 
+import java.util.Objects;
+
 public class Member extends BaseModel<Long> {
     private String fullName;
     private String number;
@@ -40,6 +42,18 @@ public class Member extends BaseModel<Long> {
             throw new InvalidDataException("Number can not be null or empty!");
         }
         this.number = number;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Member member = (Member) o;
+        return Objects.equals(fullName, member.fullName) && Objects.equals(number, member.number);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(fullName, number);
     }
 
     @Override
