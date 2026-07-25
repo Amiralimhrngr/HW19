@@ -8,7 +8,7 @@ import jakarta.persistence.EntityManagerFactory;
 
 import java.util.Optional;
 
-public abstract class GenericRepositoryImpl<T extends BaseModel<ID>, ID> implements GenericRepository<T, ID> {
+public abstract class GenericRepositoryImpl<T extends BaseModel<ID>, ID extends Number> implements GenericRepository<T, ID> {
     EntityManagerFactory emf;
 
     public GenericRepositoryImpl(EntityManagerFactory emf) {

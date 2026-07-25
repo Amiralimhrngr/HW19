@@ -4,7 +4,7 @@ import ir.maktabsharif.model.BaseModel;
 
 import java.util.Optional;
 
-public interface GenericRepository<T extends BaseModel<ID>, ID> {
+public interface GenericRepository<T extends BaseModel<ID>, ID extends Number> {
     void save(T t);
     Optional<T> findById(ID id);
     void update(T t);
