@@ -7,7 +7,7 @@ import ir.maktabsharif.service.BaseService;
 
 import java.util.function.Supplier;
 
-public abstract class BaseServiceImpl<T extends BaseModel<ID>, ID extends Number, R extends GenericRepository<T, ID> , E extends BusinessException> implements BaseService<T, ID> {
+public abstract class BaseServiceImpl<T extends BaseModel<ID>, ID extends Number, R extends GenericRepository<T, ID> , E extends BusinessException> implements BaseService<T, ID, E> {
     private final R repository;
     private final Supplier<E> exceptionSupplier;
 
