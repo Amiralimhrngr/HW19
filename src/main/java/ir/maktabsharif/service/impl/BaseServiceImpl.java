@@ -5,6 +5,7 @@ import ir.maktabsharif.model.BaseModel;
 import ir.maktabsharif.repository.GenericRepository;
 import ir.maktabsharif.service.BaseService;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 public abstract class BaseServiceImpl<T extends BaseModel<ID>, ID extends Number, R extends GenericRepository<T, ID> , E extends BusinessException> implements BaseService<T, ID, E> {
@@ -36,5 +37,10 @@ public abstract class BaseServiceImpl<T extends BaseModel<ID>, ID extends Number
     @Override
     public void delete(T t) {
         repository.delete(t);
+    }
+
+    @Override
+    public List<T> findAll(){
+        return repository.findAll();
     }
 }
