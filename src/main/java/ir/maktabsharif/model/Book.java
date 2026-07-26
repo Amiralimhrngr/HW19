@@ -1,9 +1,11 @@
 package ir.maktabsharif.model;
 
 import ir.maktabsharif.exception.InvalidDataException;
+import jakarta.persistence.Entity;
 
 import java.util.Objects;
 
+@Entity
 public class Book extends BaseModel<Long> {
 
     private String title;
