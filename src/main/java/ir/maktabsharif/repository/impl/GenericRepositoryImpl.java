@@ -21,7 +21,7 @@ public abstract class GenericRepositoryImpl<T extends BaseModel<ID>, ID extends 
     public void save(T t) {
         EntityManager em = emf.createEntityManager();
         EntityTransaction tx = em.getTransaction();
-        try (em){
+        try {
             tx.begin();
             em.persist(t);
             tx.commit();
@@ -31,13 +31,16 @@ public abstract class GenericRepositoryImpl<T extends BaseModel<ID>, ID extends 
             }
             throw new DatabaseOperationException("Save failed! " + e.getMessage());
         }
+        finally {
+            em.close();
+        }
     }
 
     @Override
     public Optional<T> findById(ID id) {
         EntityManager em = emf.createEntityManager();
         EntityTransaction tx = em.getTransaction();
-        try (em) {
+        try {
             tx.begin();
             Optional<T> object = Optional.ofNullable(em.find(getEntityClass(), id));
             tx.commit();
@@ -48,15 +51,18 @@ public abstract class GenericRepositoryImpl<T extends BaseModel<ID>, ID extends 
             }
             throw new DatabaseOperationException("Find by Id failed! " + e.getMessage());
         }
+        finally {
+            em.close();
+        }
     }
 
     @Override
     public void update(T t) {
         EntityManager em = emf.createEntityManager();
         EntityTransaction tx = em.getTransaction();
-        try (em) {
+        try  {
             tx.begin();
-            em.persist(t);
+            em.merge(t);
             tx.commit();
         } catch (Exception e) {
             if (tx.isActive()){
@@ -64,13 +70,16 @@ public abstract class GenericRepositoryImpl<T extends BaseModel<ID>, ID extends 
             }
             throw new DatabaseOperationException("Update failed! " + e.getMessage());
         }
+        finally {
+            em.close();
+        }
     }
 
     @Override
     public void delete(T t) {
         EntityManager em = emf.createEntityManager();
         EntityTransaction tx = em.getTransaction();
-        try (em) {
+        try {
             tx.begin();
             em.remove(t);
             tx.commit();
@@ -80,15 +89,21 @@ public abstract class GenericRepositoryImpl<T extends BaseModel<ID>, ID extends 
             }
             throw new DatabaseOperationException("Delete failed!");
         }
+        finally {
+            em.close();
+        }
     }
 
     @Override
     public List<T> findAll(){
         EntityManager em = emf.createEntityManager();
-        try (em) {
+        try {
             return em.createQuery("SELECT e FROM " + getEntityClass().getSimpleName() + " e", getEntityClass()).getResultList();
         } catch (Exception e) {
             throw new DatabaseOperationException("Find all failed!");
+        }
+        finally {
+            em.close();
         }
     }
 
