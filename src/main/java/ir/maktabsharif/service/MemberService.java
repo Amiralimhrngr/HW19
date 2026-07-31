@@ -2,7 +2,7 @@ package ir.maktabsharif.service;
 
 import ir.maktabsharif.exception.MemberNotFoundException;
 import ir.maktabsharif.model.Member;
-import ir.maktabsharif.repository.GenericRepository;
+
 
 public interface MemberService extends BaseService<Member , Long, MemberNotFoundException> {
 }

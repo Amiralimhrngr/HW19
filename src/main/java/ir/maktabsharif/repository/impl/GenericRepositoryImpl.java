@@ -62,6 +62,7 @@ public abstract class GenericRepositoryImpl<T extends BaseModel<ID>, ID extends 
         EntityTransaction tx = em.getTransaction();
         try  {
             tx.begin();
+            em.find(getEntityClass(), t);
             em.merge(t);
             tx.commit();
         } catch (Exception e) {
@@ -81,7 +82,8 @@ public abstract class GenericRepositoryImpl<T extends BaseModel<ID>, ID extends 
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
-            em.remove(t);
+            T e = em.find(getEntityClass(), t.getId());
+            em.remove(e);
             tx.commit();
         } catch (Exception e) {
             if (tx.isActive()) {
@@ -95,7 +97,7 @@ public abstract class GenericRepositoryImpl<T extends BaseModel<ID>, ID extends 
     }
 
     @Override
-    public List<T> findAll(){
+    public List<T> findAll() {
         EntityManager em = emf.createEntityManager();
         try {
             return em.createQuery("SELECT e FROM " + getEntityClass().getSimpleName() + " e", getEntityClass()).getResultList();

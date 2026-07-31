@@ -6,7 +6,11 @@ import ir.maktabsharif.model.Book;
 import ir.maktabsharif.repository.BookRepository;
 import ir.maktabsharif.service.BookService;
 
-public class BookServiceImpl extends BaseServiceImpl<Book, Long, BookRepository, BookNotFoundException> implements BookService {
+public class BookServiceImpl extends BaseServiceImpl<Book,
+        Long,
+        BookRepository,
+        BookNotFoundException>
+        implements BookService {
     public BookServiceImpl(BookRepository repository) {
         super(repository, () -> new BookNotFoundException("Book not found!"));
     }

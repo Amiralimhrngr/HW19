@@ -6,9 +6,11 @@ import ir.maktabsharif.model.Member;
 import ir.maktabsharif.repository.MemberRepository;
 import ir.maktabsharif.service.MemberService;
 
-import java.util.function.Supplier;
-
-public class MemberServiceImpl extends BaseServiceImpl<Member, Long, MemberRepository, MemberNotFoundException> implements MemberService {
+public class MemberServiceImpl extends BaseServiceImpl<Member,
+        Long,
+        MemberRepository,
+        MemberNotFoundException>
+        implements MemberService {
     public MemberServiceImpl(MemberRepository repository) {
         super(repository, () -> new MemberNotFoundException("Member not found!"));
     }

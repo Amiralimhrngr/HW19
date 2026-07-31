@@ -155,6 +155,7 @@ public class Main {
                         default:
                             System.out.println("Please enter a valid option!");
                     }
+                    break;
 
                 case 9:
                     System.out.println("Exiting...");

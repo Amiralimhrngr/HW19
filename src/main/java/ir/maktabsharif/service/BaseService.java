@@ -5,7 +5,9 @@ import ir.maktabsharif.model.BaseModel;
 
 import java.util.List;
 
-public interface BaseService<T extends BaseModel<ID>, ID extends Number, E extends BusinessException> {
+public interface BaseService <T extends BaseModel<ID>,
+        ID extends Number,
+        E extends BusinessException> {
     void save(T t);
 
     void update(T t);
